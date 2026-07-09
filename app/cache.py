@@ -1,34 +1,49 @@
-"""In-memory response caches for read-heavy reporting endpoints.
-
-Usage reports and per-room availability are relatively expensive to compute and
-are read far more often than the underlying data changes, so results are cached
-and invalidated when the data they depend on is modified.
 """
+Cache helpers.
 
-_report_cache: dict[tuple, dict] = {}
-_availability_cache: dict[tuple, dict] = {}
+Disabled for hackathon correctness.
+
+The API contract requires reporting and availability
+endpoints to reflect current database state immediately
+after booking creation or cancellation.
+"""
 
 
 def get_report(org_id: int, frm: str, to: str):
-    return _report_cache.get((org_id, frm, to))
+    return None
 
 
-def set_report(org_id: int, frm: str, to: str, value: dict) -> None:
-    _report_cache[(org_id, frm, to)] = value
+def set_report(
+    org_id: int,
+    frm: str,
+    to: str,
+    value: dict
+) -> None:
+    pass
+
 
 
 def invalidate_report(org_id: int) -> None:
-    for key in [k for k in _report_cache if k[0] == org_id]:
-        _report_cache.pop(key, None)
+    pass
+
 
 
 def get_availability(room_id: int, date: str):
-    return _availability_cache.get((room_id, date))
+    return None
 
 
-def set_availability(room_id: int, date: str, value: dict) -> None:
-    _availability_cache[(room_id, date)] = value
+
+def set_availability(
+    room_id: int,
+    date: str,
+    value: dict
+) -> None:
+    pass
 
 
-def invalidate_availability(room_id: int, date: str) -> None:
-    _availability_cache.pop((room_id, date), None)
+
+def invalidate_availability(
+    room_id: int,
+    date: str
+) -> None:
+    pass
